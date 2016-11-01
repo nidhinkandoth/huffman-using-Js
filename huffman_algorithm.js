@@ -23,7 +23,6 @@ function sortFreq(freq) {
 	freq_tuple.sort();
 	return freq_tuple;
 };
-var freq_tuple = sortFreq(frequency("aaabccdeeeeeffg"));
 //console.log(freq_tuple);
 
 
@@ -46,12 +45,12 @@ function buildTree(freq_tuple) {
 	return freq_tuple[0];
 	};
 
-console.log(buildTree(freq_tuple));
+//console.log(buildTree(freq_tuple));
 
 
 function trimTree(tree) {
 	var p = tree[1];
-	if(typeof(p) == typeof('a')) {
+	if(typeof(p) == typeof('')) {
 		return p;
 	} else {
 		return [trimTree(p[0]), trimTree(p[1])];
@@ -59,9 +58,82 @@ function trimTree(tree) {
 };
 
 
-var tree = buildTree(freq_tuple);
-console.log(tree);
+//console.log(tree);
 
-console.log(trimTree(tree));
-//console.log(trimTree(buildTree(sortFreq(frequency("aaabccdeeeeeffg")))));
+//console.log(trimTree(tree));
+
+pat='';
+codes = {};
+function assignCodes(node, pat) {
+    if(typeof(node) == typeof("")) {
+         codes[node] = pat;       
+	}         
+    else{                               
+        assignCodes(node[0], pat+"0");    
+        assignCodes(node[1], pat+"1"); 
+	}
+    return codes;
+};
+
+
+//console.log(assignCodes(tree,pat));
+
+//ENCODE function
+
+function encode(str) {
+	output='';
+	for(i=0; i<str.length; i++){
+		output+=codes[str[i]];
+	return output;
+	}
+};
+
+//DECODE function
+
+function decode(tree, str){
+	output='';
+	p = tree;
+	for(i=0; i<str.length; i++){
+		if(str[i] == 0){
+			p=p[0];
+		}
+		else{
+			p=p[1];
+		}
+	if(typeof(p) == typeof('')){
+		output+=p;
+		p= tree;
+	}
+	}
+	return output;
+};
+
+
+var freq_tuple = sortFreq(frequency("aaabccdeeeeeffg"));
+var tree = buildTree(freq_tuple);
+var tree = trimTree(tree);
+var assign = assignCodes(tree,pat);
+var encoded_data = encode("aaabccdeeeeeffg");
+console.log(encoded_data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
