@@ -81,11 +81,14 @@ function assignCodes(node, pat) {
 //ENCODE function
 
 function encode(str) {
+	//console.log("codes",codes);
 	output='';
 	for(i=0; i<str.length; i++){
-		output+=codes[str[i]];
-	return output;
+		output += codes[str[i]];
+		//console.log(output);
 	}
+	return output;
+	
 };
 
 //DECODE function
@@ -112,10 +115,12 @@ function decode(tree, str){
 var freq_tuple = sortFreq(frequency("aaabccdeeeeeffg"));
 var tree = buildTree(freq_tuple);
 var tree = trimTree(tree);
-var assign = assignCodes(tree,pat);
+var codes = assignCodes(tree,pat);
+console.log("codes\n",codes);
 var encoded_data = encode("aaabccdeeeeeffg");
-console.log(encoded_data);
-
+console.log("compressed\n",encoded_data);
+var decoding = decode(tree,encoded_data);
+console.log("decoded\n",decoding);
 
 
 
