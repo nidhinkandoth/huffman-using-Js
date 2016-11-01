@@ -24,24 +24,33 @@ function sortFreq(freq) {
 	return freq_tuple;
 };
 var freq_tuple = sortFreq(frequency("aaabccdeeeeeffg"));
+//console.log(freq_tuple);
+
 
 
 function buildTree(freq_tuple) {
-	var len = freq_tuple.length;
-	while(len > 1) {
-		leastTwo = freq_tuple.slice(0,2);	
+	//var len = freq_tuple.length;
+	while((freq_tuple.length) > 1) {
+		leastTwo = freq_tuple.slice(0,2);
+		//console.log(leastTwo);	
 		theRest = freq_tuple.slice(2);
+		//console.log(theRest);
 		combFreq = leastTwo[0][0] + leastTwo[1][0];
-		freq_tuple = theRest.concat([combFreq, leastTwo]);
+		//console.log(combFreq);
+		theRest.push([combFreq, leastTwo]);
+		freq_tuple = theRest;
 		freq_tuple.sort();
-		len-=1;
+		//console.log(sorted);
 		}
 	
 	return freq_tuple[0];
 	};
 
+console.log(buildTree(freq_tuple));
+
+
 function trimTree(tree) {
-	p = tree[1];
+	var p = tree[1];
 	if(typeof(p) == typeof('a')) {
 		return p;
 	} else {
@@ -49,9 +58,10 @@ function trimTree(tree) {
 	}
 };
 
-tree = buildTree(freq_tuple);
+
+var tree = buildTree(freq_tuple);
+console.log(tree);
+
 console.log(trimTree(tree));
-
-
 //console.log(trimTree(buildTree(sortFreq(frequency("aaabccdeeeeeffg")))));
 
